@@ -31,7 +31,7 @@ def get_bugs_by_keyword(keyword: str, page_index: int = 1) -> dict:
         # Make the request
         response = requests.get(url, params=params, headers=auth_header)
         response.raise_for_status()  # Raise HTTPError for bad responses
-        return response.json()  # Parse response JSON
+        return response.text  # Parse response JSON
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
         return {"error": str(e)}
@@ -62,7 +62,7 @@ def get_security_advisories(start_date: str, end_date: str, page_index: int = 1)
         # Make the request
         response = requests.get(url, params=params, headers=auth_header)
         response.raise_for_status()  # Raise HTTPError for bad responses
-        return response.json()  # Parse response JSON
+        return response.text  # Parse response JSON
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
         return {"error": str(e)}
@@ -82,42 +82,40 @@ if __name__ == "__main__":
     print(result)
     
 cisco_tools = [
-        {
-            "type": "function",
-            "function": {
-                {
-                    "name": "get_security_advisories",
-                    "description": "Fetch security advisories published within a specified date     range.",
-                    "strict": True,
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "startDate": {"type": "string", "description": "Start date in the format    YYYY-MM-DD (e.g., '2024-05-12')."},
-                            "endDate": {"type": "string", "description": "End date in the format    YYYY-MM-DD (e.g., '2024-05-12')."},
-                            "pageIndex": {"type": "integer", "description": "The current page index.    Must be between 1 and 100.", "default": 1, "minimum": 1, "maximum": 100},
-                        },
-                        "required": ["startDate", "endDate"],
-                        "additionalProperties": False,
-                    },
-                }
+    {
+        "type": "function",
+        "function": {
+            "name": "get_security_advisories",
+            "description": "Fetch security advisories published within a specified date     range.",
+            "strict": True,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "start_date": {"type": "string", "description": "Start date in the format    YYYY-MM-DD (e.g., '2024-05-12')."},
+                    "end_date": {"type": "string", "description": "End date in the format    YYYY-MM-DD (e.g., '2024-05-12')."},
+                    "page_index": {"type": "integer", "description": "The current page index.    Must be between 1 and 100."},
+                },
+                "required": ["start_date", "end_date","page_index"],
+                "additionalProperties": False,
             },
         },
-        {
-            "type": "function",
-            "function": {
-                {
-                    "name": "get_bugs_by_keyword",
-                    "description": "Fetches bugs based on a keyword from the Cisco API.",
-                    "strict": True,
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "keyword": {"type": "string", "description": "Keyword(s) to return  details on associated bugs. Maximum length of 50 characters."},
-                            "page_index": {"type": "number", "description": "Index number of the    page to return. Defaults to 1."},
-                        },
-                        "required": ["keyword", "page_index"],
-                    },
-                }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_bugs_by_keyword",
+            "description": "Fetches bugs based on a keyword from the Cisco API.",
+            "strict": True,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "keyword": {"type": "string", "description": "Keyword(s) to return  details on associated bugs. Maximum length of 50 characters."},
+                    "page_index": {"type": "number", "description": "Index number of the    page to return. Defaults to 1."},
+                },
+              "required": ["keyword", "page_index"],
+              "additionalProperties": False
             },
         },
-    ]
+    },
+]
+
