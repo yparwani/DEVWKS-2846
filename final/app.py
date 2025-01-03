@@ -7,6 +7,22 @@ import ciscotools
 MAX_ITER = 2
 
 
+@cl.set_starters
+async def set_starters():
+    return [
+        cl.Starter(
+            label="Get PSIRTs released in December 2024",
+            message="Get me all the psirts released in the last week of december 2024",
+            icon="https://img.icons8.com/color/48/warning-shield.png",
+        ),
+        cl.Starter(
+            label="Get bugs related to Catalyst 9800",
+            message="Cisco Catalyst 9800 bugs",
+            icon="https://img.icons8.com/color/48/ladybird.png",
+        ),
+    ]
+
+
 @cl.on_chat_start
 def start_chat():
     cl.user_session.set(
