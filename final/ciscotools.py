@@ -38,7 +38,10 @@ async def get_bugs_by_keyword(keyword: str, page_index: int = 1) -> dict:
             return response.text  # LLM tool call requires string response
     except httpx.RequestError as e:
         print(f"An error occurred: {e}")
-        return {"error": str(e)}
+        return f"An error occurred while fetching defect details: {e}"
+    except httpx.HTTPStatusError as e:
+        print(f"HTTP error occurred while fetching defect details: {e.response.status_code} - {e.response.text}")
+        return f"HTTP error occurred while fetching defect details: {e.response.status_code} - {e.response.text}"
 
 
 @cl.step(type="tool", show_input=True)
@@ -71,7 +74,10 @@ async def get_security_advisories(start_date: str, end_date: str, page_index: in
             return response.text  # LLM tool call requires string response
     except httpx.RequestError as e:
         print(f"An error occurred: {e}")
-        return {"error": str(e)}
+        return f"An error occurred while fetching security advisories: {e}"
+    except httpx.HTTPStatusError as e:
+        print(f"HTTP error occurred while fetching security advisories: {e.response.status_code} - {e.response.text}")
+        return f"HTTP error occurred while fetching security advisories: {e.response.status_code} - {e.response.text}"
 
 
 cisco_tools = [
