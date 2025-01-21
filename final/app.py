@@ -11,8 +11,8 @@ MAX_ITER = 2
 async def set_starters():
     return [
         cl.Starter(
-            label="Get PSIRTs released in December 2024",
-            message="Get me all the psirts released in the last week of december 2024",
+            label="Get PSIRTs released in January 2025",
+            message="Get me all the psirts released in the January 2025",
             icon="https://img.icons8.com/color/48/warning-shield.png",
         ),
         cl.Starter(
