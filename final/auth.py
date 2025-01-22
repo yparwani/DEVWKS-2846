@@ -6,8 +6,8 @@ async def get_oauth_token():
     url = "https://id.cisco.com/oauth2/default/v1/token"
     payload = {
         "grant_type": "client_credentials",
-        "client_id": os.getenv("CLIENT_ID"),
-        "client_secret": os.getenv("CLIENT_SECRET"),
+        "client_id": os.getenv("CLIENTID"),
+        "client_secret": os.getenv("CLIENTSECRET"),
     }
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
 

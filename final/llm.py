@@ -5,7 +5,7 @@ import ciscotools
 
 # Azure OpenAI Configuration (Assumed client and deployment are configured)
 client = AsyncAzureOpenAI(
-    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    api_key=os.getenv("AZUREKEY"),
     api_version="2024-10-21",
     azure_endpoint="https://ciscolive25.openai.azure.com/",
 )
