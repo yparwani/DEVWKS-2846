@@ -9,7 +9,7 @@ client = AsyncAzureOpenAI(
     api_version="2024-10-21",
     azure_endpoint="https://ciscolive25.openai.azure.com/",
 )
-deployment_name = "gpt-4o"
+deployment_name = "gpt-4o-mini"
 
 
 async def call_llm_stream(message_history: list):
